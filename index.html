@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Way I Work — Hang</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crimson:    #c0152a;
+    --crimson-2:  #8f0e1e;
+    --deep-red:   #5c0a12;
+    --purple:     #2a1040;
+    --purple-mid: #3d1a5c;
+    --gold:       #e8922a;
+    --gold-light: #f5b84a;
+
+    --bg:           #140818;
+    --surface:      #1e0d28;
+    --surface-2:    #28102e;
+    --border:       rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --text-primary:   #f5f0ee;
+    --text-secondary: rgba(245,240,238,0.55);
+    --text-muted:     rgba(245,240,238,0.28);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  .page { max-width: 660px; margin: 0 auto; }
+
+  /* ── Banner ── */
+  .banner {
+    width: 100%;
+    max-width: 660px;
+    margin: 0 auto 2rem;
+    border-radius: 16px;
+    overflow: hidden;
+    display: block;
+  }
+  .banner img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+  }
+  .banner-placeholder {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, var(--crimson) 0%, var(--purple-mid) 60%, var(--gold) 100%);
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+  }
+
+  /* ── Cover ── */
+  .cover {
+    padding-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
+    border-bottom: 0.5px solid var(--border);
+    position: relative;
+  }
+
+  .cover-label {
+    font-size: 13px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+  }
+
+  .cover-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(48px, 8vw, 72px);
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, var(--crimson) 0%, var(--gold) 60%, var(--gold-light) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cover-tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--text-secondary);
+    letter-spacing: 0.02em;
+  }
+
+  .cover-dots {
+    position: absolute;
+    top: 0; right: 0;
+    display: flex; gap: 8px;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+
+  /* ── Stars decoration ── */
+  .cover-stars {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .star {
+    position: absolute;
+    opacity: 0.06;
+    color: var(--crimson);
+    font-size: 60px;
+    line-height: 1;
+    user-select: none;
+  }
+
+  /* ── Grid ── */
+  .grid { display: grid; gap: 1rem; margin-bottom: 1rem; }
+  .grid-2 { grid-template-columns: 1fr 1fr; }
+  .grid-1 { grid-template-columns: 1fr; }
+
+  @media (max-width: 560px) { .grid-2 { grid-template-columns: 1fr; } }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--border-hover); }
+
+  .card-q {
+    font-size: 13px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    margin-bottom: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-q-icon {
+    width: 28px; height: 28px;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+
+  .card-a {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .card-a strong { font-weight: 500; color: var(--text-primary); }
+
+  .card-a ul {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+
+  .card-a ul li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    line-height: 1.65;
+  }
+
+  .card-a ul li .bullet {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 0.48em;
+    opacity: 0.45;
+  }
+
+  /* ── Accent variants ── */
+  .accent-crimson { border-left: 2px solid var(--crimson); }
+  .accent-crimson .card-q { color: #e8475f; }
+  .accent-crimson .card-q-icon { background: rgba(192,21,42,0.15); color: #e8475f; }
+  .accent-crimson .bullet { background: #e8475f; }
+
+  .accent-gold .card-q { color: var(--gold); }
+  .accent-gold .card-q-icon { background: rgba(232,146,42,0.12); color: var(--gold); }
+  .accent-gold .bullet { background: var(--gold); }
+
+  .accent-purple .card-q { color: #a078d8; }
+  .accent-purple .card-q-icon { background: rgba(100,60,180,0.15); color: #a078d8; }
+  .accent-purple .bullet { background: #a078d8; }
+
+  .accent-rose .card-q { color: #e8728a; }
+  .accent-rose .card-q-icon { background: rgba(192,21,42,0.1); color: #e8728a; }
+  .accent-rose .bullet { background: #e8728a; }
+
+  .accent-warm .card-q { color: var(--gold-light); }
+  .accent-warm .card-q-icon { background: rgba(245,184,74,0.1); color: var(--gold-light); }
+  .accent-warm .bullet { background: var(--gold-light); }
+
+  /* ── Pride items ── */
+  .pride-list { display: flex; flex-direction: column; gap: 1.1rem; }
+  .pride-item { display: flex; gap: 12px; align-items: flex-start; }
+  .pride-tag {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 20px;
+    padding: 4px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .tag-crimson { background: rgba(192,21,42,0.2);  color: #e8475f; }
+  .tag-gold    { background: rgba(232,146,42,0.18); color: var(--gold); }
+  .tag-purple  { background: rgba(100,60,180,0.2);  color: #a078d8; }
+  .pride-text { font-size: 17px; line-height: 1.7; color: var(--text-secondary); }
+
+  /* ── Footer ── */
+  .footer {
+    margin-top: 2.5rem;
+    text-align: center;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+  .footer span {
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin: 0 8px;
+    position: relative;
+    top: -1px;
+  }
+
+  /* ── Scroll animations ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .cover-label, .cover-name, .cover-tagline, .cover-dots {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .cover-label.visible, .cover-name.visible, .cover-tagline.visible, .cover-dots.visible {
+    opacity: 1; transform: translateY(0);
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- BANNER: replace images/banner.png with your own image -->
+  <div class="banner" id="banner-wrap">
+    <img src="images/banner.png"
+         alt="Personal banner"
+         onerror="this.parentElement.innerHTML='<div class=\'banner-placeholder\'>Add your banner → images/banner.png</div>'"
+    />
+  </div>
+
+  <div class="cover">
+    <div class="cover-dots">
+      <div class="dot" style="background:var(--crimson)"></div>
+      <div class="dot" style="background:var(--crimson-2)"></div>
+      <div class="dot" style="background:var(--purple-mid)"></div>
+      <div class="dot" style="background:var(--gold)"></div>
+      <div class="dot" style="background:var(--gold-light)"></div>
+    </div>
+    <p class="cover-label">The Way I Work</p>
+    <h1 class="cover-name">Hang</h1>
+    <p class="cover-tagline">Instructional Designer &middot; Learning Strategist &middot; Curious Mind</p>
+  </div>
+
+  <div class="grid grid-1 reveal">
+    <div class="card accent-crimson">
+      <div class="card-q">
+        <span class="card-q-icon">✨</span>
+        I work brilliantly together with&hellip;
+      </div>
+      <div class="card-a"><ul>
+        <li><span class="bullet"></span>People who start with <strong>why</strong> before jumping to <strong>how</strong></li>
+        <li><span class="bullet"></span>Collaborators willing to question whether something should exist before building it — driven by genuine curiosity, not just compliance</li>
+        <li><span class="bullet"></span>People who can hold space for reflection and aren't put off by "but what's the real problem we're solving?"</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="grid grid-2 reveal">
+    <div class="card accent-rose">
+      <div class="card-q">
+        <span class="card-q-icon">💡</span>
+        You'll get me on board by&hellip;
+      </div>
+      <div class="card-a"><ul>
+        <li><span class="bullet"></span>Showing me the learner at the centre of the decision</li>
+        <li><span class="bullet"></span>Bringing evidence, sharing real context, and trusting me with the messy details</li>
+        <li><span class="bullet"></span>Leading with honesty over polish — I'll push back kindly if something doesn't add up</li>
+        <li><span class="bullet"></span>Knowing that reasoning matters more to me than authority</li>
+      </ul></div>
+    </div>
+    <div class="card accent-gold">
+      <div class="card-q">
+        <span class="card-q-icon">🔥</span>
+        What motivates me each day&hellip;
+      </div>
+      <div class="card-a"><ul>
+        <li><span class="bullet"></span>The moment something <strong>clicks</strong> for someone — including me</li>
+        <li><span class="bullet"></span>Work that is genuinely useful, not just technically complete</li>
+        <li><span class="bullet"></span>Understanding how people learn, grow, and make sense of their experiences</li>
+        <li><span class="bullet"></span>Intellectual curiosity — it's my constant engine</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="grid grid-2 reveal">
+    <div class="card accent-purple">
+      <div class="card-q">
+        <span class="card-q-icon">⛈️</span>
+        What gets in my way&hellip;
+      </div>
+      <div class="card-a"><ul>
+        <li><span class="bullet"></span>Content that exists for the sake of existing</li>
+        <li><span class="bullet"></span>Jargon used without meaning or explanation</li>
+        <li><span class="bullet"></span>Environments where feedback is withheld and I have to guess where I stand</li>
+        <li><span class="bullet"></span>Technical cultures that don't make room for foundational questions</li>
+      </ul></div>
+    </div>
+    <div class="card accent-warm">
+      <div class="card-q">
+        <span class="card-q-icon">🌊</span>
+        When I'm under stress&hellip;
+      </div>
+      <div class="card-a"><ul>
+        <li><span class="bullet"></span>I process by <strong>articulating</strong> — talking or writing through the problem helps me find clarity</li>
+        <li><span class="bullet"></span>I may go quiet first to make sense of things internally before I'm ready to engage</li>
+        <li><span class="bullet"></span>I protect my energy carefully and recover best with space, not pressure</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="grid grid-1 reveal">
+    <div class="card accent-rose">
+      <div class="card-q">
+        <span class="card-q-icon">💬</span>
+        Things I'd love to resolve as a team&hellip;
+      </div>
+      <div class="card-a"><ul>
+        <li><span class="bullet"></span>How we know when learning content is <strong>actually working</strong> — not just finished</li>
+        <li><span class="bullet"></span>How we protect space for learner-centred thinking even when timelines are tight</li>
+        <li><span class="bullet"></span>How we build a culture where asking foundational questions isn't mistaken for incompetence</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="grid grid-1 reveal">
+    <div class="card accent-gold">
+      <div class="card-q">
+        <span class="card-q-icon">🏆</span>
+        My top three strengths
+      </div>
+      <div class="flashcard-row">
+
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-spacer">I don't stop at the surface. I go beyond what's given — independently researching, identifying gaps, and surfacing insights others often miss. My value isn't just in finding answers, but in asking better questions.</div>
+            <div class="flashcard-front fc-crimson">
+              <div class="fc-icon">🔍</div>
+              <div class="fc-title">Deep Thinker</div>
+              <div class="fc-hint">tap to reveal</div>
+            </div>
+            <div class="flashcard-back fc-crimson-back">
+              <p>I don't stop at the surface. I go beyond what's given — independently researching, identifying gaps, and surfacing insights others often miss. My value isn't just in finding answers, but in asking better questions.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-spacer">I don't stop at the surface. I go beyond what's given — independently researching, identifying gaps, and surfacing insights others often miss. My value isn't just in finding answers, but in asking better questions.</div>
+            <div class="flashcard-front fc-purple">
+              <div class="fc-icon">📊</div>
+              <div class="fc-title">Analytical Mindset</div>
+              <div class="fc-hint">tap to reveal</div>
+            </div>
+            <div class="flashcard-back fc-purple-back">
+              <p>Before I commit, I define the risks. I take time to understand exactly what I'm signing up for — and I can articulate the stakes clearly to others. I bring clarity to complexity before it becomes a problem.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flashcard" onclick="this.classList.toggle('flipped')">
+          <div class="flashcard-inner">
+            <div class="flashcard-spacer">I don't stop at the surface. I go beyond what's given — independently researching, identifying gaps, and surfacing insights others often miss. My value isn't just in finding answers, but in asking better questions.</div>
+            <div class="flashcard-front fc-gold">
+              <div class="fc-icon">✦</div>
+              <div class="fc-title">Creative Problem-Solver</div>
+              <div class="fc-hint">tap to reveal</div>
+            </div>
+            <div class="flashcard-back fc-gold-back">
+              <p>When a concept is abstract, I make it tangible. I'm comfortable moving across the full spectrum — from big-picture thinking to granular detail — and finding the form that makes an idea land.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <style>
+    .flashcard-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.85rem;
+      margin-top: 0.75rem;
+      align-items: stretch;
+    }
+
+    .flashcard {
+      perspective: 1000px;
+      cursor: pointer;
+    }
+
+    .flashcard-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .flashcard.flipped .flashcard-inner {
+      transform: rotateY(180deg);
+    }
+
+    .flashcard-spacer {
+      visibility: hidden;
+      pointer-events: none;
+      padding: 1.25rem;
+      font-size: 17px;
+      line-height: 1.65;
+    }
+
+    .flashcard-front, .flashcard-back {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border-radius: 12px;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .flashcard-back {
+      transform: rotateY(180deg);
+    }
+
+    /* Front styles */
+    .fc-crimson { background: rgba(192,21,42,0.18); border: 1px solid rgba(232,71,95,0.3); }
+    .fc-purple  { background: rgba(100,60,180,0.18); border: 1px solid rgba(160,120,216,0.3); }
+    .fc-gold    { background: rgba(232,146,42,0.15); border: 1px solid rgba(232,146,42,0.3); }
+
+    .fc-icon { font-size: 30px; margin-bottom: 0.6rem; }
+    .fc-title {
+      font-size: 17px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+      margin-bottom: 0.6rem;
+    }
+    .fc-crimson .fc-title { color: #e8475f; }
+    .fc-purple  .fc-title { color: #a078d8; }
+    .fc-gold    .fc-title { color: var(--gold); }
+
+    .fc-hint {
+      font-size: 13px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      opacity: 0.35;
+      color: var(--text-primary);
+    }
+
+    /* Back styles */
+    .fc-crimson-back { background: rgba(192,21,42,0.28); border: 1px solid rgba(232,71,95,0.4); }
+    .fc-purple-back  { background: rgba(100,60,180,0.28); border: 1px solid rgba(160,120,216,0.4); }
+    .fc-gold-back    { background: rgba(232,146,42,0.22); border: 1px solid rgba(232,146,42,0.4); }
+
+    .flashcard-back p {
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      font-weight: 300;
+      padding: 0.5rem;
+    }
+
+    @media (max-width: 560px) {
+      .flashcard-row { grid-template-columns: 1fr; }
+      .flashcard { height: 160px; }
+    }
+  </style>
+
+  <div class="grid grid-1 reveal">
+    <div class="card accent-purple">
+      <div class="card-q">
+        <span class="card-q-icon">🌟</span>
+        What I need to do my best work&hellip;
+      </div>
+      <table class="needs-table">
+        <tbody>
+          <tr>
+            <td class="need-label">Purpose-driven work</td>
+            <td class="need-desc">I'm most engaged when I can see how my contribution connects to a meaningful outcome, not just a deliverable</td>
+          </tr>
+          <tr>
+            <td class="need-label">Access to the right information</td>
+            <td class="need-desc">Being kept in the loop allows me to prepare thoroughly and show up with confidence</td>
+          </tr>
+          <tr>
+            <td class="need-label">Visibility with leadership</td>
+            <td class="need-desc">Knowing my work is seen and valued by the people who matter helps me stay motivated and grow</td>
+          </tr>
+          <tr>
+            <td class="need-label">Psychological safety in collaboration</td>
+            <td class="need-desc">I contribute best in environments where different perspectives are welcomed and people feel safe to speak honestly</td>
+          </tr>
+          <tr>
+            <td class="need-label">Stretch opportunities</td>
+            <td class="need-desc">Being trusted with meaningful, complex work signals that my growth is taken seriously</td>
+          </tr>
+          <tr>
+            <td class="need-label">Consistent touchpoints</td>
+            <td class="need-desc">Regular check-ins give me the clarity and direction I need to prioritise well and stay aligned</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <style>
+    .needs-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.25rem;
+    }
+    .needs-table tr {
+      border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    }
+    .needs-table tr:last-child {
+      border-bottom: none;
+    }
+    .needs-table td {
+      padding: 0.75rem 0.5rem;
+      vertical-align: top;
+      font-size: 17px;
+      line-height: 1.6;
+    }
+    .need-label {
+      font-weight: 500;
+      color: var(--text-primary);
+      white-space: nowrap;
+      padding-right: 1.25rem;
+      width: 1%;
+    }
+    .need-desc {
+      color: var(--text-secondary);
+    }
+  </style>
+
+  <div class="grid grid-1 reveal">
+    <div class="card accent-crimson" style="border-left: 2px solid var(--crimson);">
+      <div class="card-q">
+        <span class="card-q-icon">💌</span>
+        The best way to give me feedback&hellip;
+      </div>
+      <div class="card-a"><ul>
+        <li><span class="bullet"></span>Be direct and specific — I want to know where I can grow, so don't soften it into nothing</li>
+        <li><span class="bullet"></span>Tell me <strong>why</strong> something landed a certain way, not just what</li>
+        <li><span class="bullet"></span>Deliver it in conversation rather than leaving it ambiguous</li>
+        <li><span class="bullet"></span>Don't make me guess — "here's what I noticed" beats reading the room every time</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="footer reveal">
+    Living document
+    <span style="background:var(--crimson)"></span>
+    June 2026
+  </div>
+
+</div>
+<script>
+  const coverEls = document.querySelectorAll('.cover-label, .cover-dots, .cover-name, .cover-tagline');
+  coverEls.forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 100 + i * 150);
+  });
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = entry.target.dataset.delay || 0;
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.reveal').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
+<!-- banner reference added via JS below -->
